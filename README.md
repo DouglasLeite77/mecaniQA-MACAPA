@@ -34,7 +34,7 @@ A equipe escolheu o modelo aditivo e o período de 7 dias porque os dados são d
 
 O arquivo `pipeline.py` implementa um Pipeline de Machine Learning para prever a quantidade de trocas de óleo no dia seguinte. Os dados são separados cronologicamente em 80% para treino e 20% para teste. O Pipeline aplica, nesta ordem, `SimpleImputer`, `StandardScaler` e `RandomForestRegressor`, sendo treinado com `pipeline.fit(X_train, y_train)`. A validação atual obteve MAE de aproximadamente 7,04 trocas de óleo.
 
-As etapas de tratamento de outliers, dos modelos Naive e de médias móveis e do gráfico comparando previsões com valores reais ainda serão acrescentadas para completar a OAT 1.
+O arquivo `mecaniqa_oat1.ipynb` reúne a entrega completa em formato Jupyter Notebook: inspeção com `head()` e `info()`, tratamento de valores ausentes e outliers pelo método IQR, decomposição sazonal aditiva, Pipeline sem vazamento de dados, modelos Naive e médias móveis de 7 e 30 dias e gráfico comparando valores reais e previsões.
 
 ## Estrutura do repositório
 
@@ -42,6 +42,7 @@ As etapas de tratamento de outliers, dos modelos Naive e de médias móveis e do
 mecaniQA-MACAPA/
 |-- app.py
 |-- pipeline.py
+|-- mecaniqa_oat1.ipynb
 |-- datasets/
 |   `-- mecaniqa_dataset.xlsx
 |-- mecaniQA_oat1_macapa.pdf
@@ -69,6 +70,8 @@ Para treinar e avaliar o Pipeline preditivo, execute:
 ```bash
 py -3.14 pipeline.py
 ```
+
+Para abrir a entrega completa em formato Notebook, abra `mecaniqa_oat1.ipynb` no VS Code com a extensão Jupyter ou no Google Colab.
 
 ## Equipe Macapá
 
