@@ -6,7 +6,7 @@ Este repositório faz parte da primeira OAT da disciplina de Modelos de Aprendiz
 
 A proposta da MecaniQA é analisar o histórico de manutenções de oficinas e auto centers. A ideia é entender os períodos de maior e menor movimento para ajudar no planejamento do estoque de peças e da equipe de mecânicos.
 
-Nesta primeira etapa, estamos trabalhando com séries temporais de trocas de óleo e manutenções de motor. O projeto envolve a organização e limpeza dos dados, a análise de tendência e sazonalidade e a criação de modelos simples de previsão para servir como base de comparação.
+Nesta primeira etapa, trabalhamos com séries temporais de trocas de óleo e manutenções de motor. O projeto envolve a organização e limpeza dos dados, a análise de tendência e sazonalidade e a criação de modelos simples de previsão para servir como base de comparação.
 
 ## Objetivos da OAT 1
 
@@ -28,19 +28,23 @@ O arquivo utilizado está na pasta `datasets` e possui 731 registros, entre jane
 
 ## Etapa atual
 
-O código atual realiza a leitura da planilha, transforma a coluna de data em índice e ordena os registros em ordem cronológica. Também faz o preenchimento dos valores ausentes da série analisada e gera a decomposição visual das trocas de óleo.
+O arquivo `app.py` realiza a leitura da planilha, transforma a coluna de data em índice e ordena os registros em ordem cronológica. Também faz o preenchimento dos valores ausentes da série analisada e gera a decomposição visual das trocas de óleo.
 
 A equipe escolheu o modelo aditivo e o período de 7 dias porque os dados são diários e apresentam um comportamento que se repete semanalmente. O resultado é apresentado em quatro gráficos: série observada, tendência, sazonalidade e ruído.
 
-As etapas de tratamento de outliers e dos modelos Naive e de médias móveis ainda serão acrescentadas para completar a OAT 1.
+O arquivo `pipeline.py` implementa um Pipeline de Machine Learning para prever a quantidade de trocas de óleo no dia seguinte. Os dados são separados cronologicamente em 80% para treino e 20% para teste. O Pipeline aplica, nesta ordem, `SimpleImputer`, `StandardScaler` e `RandomForestRegressor`, sendo treinado com `pipeline.fit(X_train, y_train)`. A validação atual obteve MAE de aproximadamente 7,04 trocas de óleo.
+
+As etapas de tratamento de outliers, dos modelos Naive e de médias móveis e do gráfico comparando previsões com valores reais ainda serão acrescentadas para completar a OAT 1.
 
 ## Estrutura do repositório
 
 ```text
 mecaniQA-MACAPA/
 |-- app.py
+|-- pipeline.py
 |-- datasets/
 |   `-- mecaniqa_dataset.xlsx
+|-- mecaniQA_oat1_macapa.pdf
 `-- README.md
 ```
 
@@ -49,16 +53,22 @@ mecaniQA-MACAPA/
 Com o Python instalado, abra o terminal na pasta do projeto e instale as bibliotecas utilizadas:
 
 ```bash
-pip install pandas matplotlib statsmodels openpyxl
+py -3.14 -m pip install pandas matplotlib statsmodels openpyxl scikit-learn
 ```
 
 Depois execute:
 
 ```bash
-python app.py
+py -3.14 app.py
 ```
 
 O programa carregará o dataset e exibirá os gráficos da decomposição da série temporal.
+
+Para treinar e avaliar o Pipeline preditivo, execute:
+
+```bash
+py -3.14 pipeline.py
+```
 
 ## Equipe Macapá
 
