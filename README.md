@@ -49,6 +49,8 @@ mecaniQA-MACAPA/
 |-- app.py
 |-- pipeline.py
 |-- oat3_gridsearch.ipynb
+|-- oat3_completa.py
+|-- oat3_completa.ipynb
 |-- mecaniqa_oat1.ipynb
 |-- datasets/
 |   `-- mecaniqa_dataset.xlsx
@@ -83,6 +85,22 @@ Para abrir a entrega completa em formato Notebook, abra `mecaniqa_oat1.ipynb` no
 ### OAT 3 no Colab
 
 Abra `oat3_gridsearch.ipynb` no Google Colab pela opção de upload de notebook e execute todas as células. Quando solicitado, envie `datasets/mecaniqa_dataset.xlsx` do computador. O notebook contém o código completo de treinamento; não é necessário enviar `pipeline.py`. Localmente, ele usa a planilha da pasta `datasets` ou uma cópia ao lado do notebook.
+
+### OAT 3 completa
+
+O notebook `oat3_completa.ipynb` reúne todas as etapas: modelos iniciais com parâmetros padrão (30/09), Grid Search (07/10), Random Search e comparação de tempo e erro (14/10), motor de métricas e gráfico final (21/10). Funciona no Colab com o upload apenas da planilha. O notebook do dia 7 permanece separado para apresentar aquele encontro.
+
+Para executar toda a OAT 3 pelo terminal:
+
+```powershell
+py -3.14 oat3_completa.py
+```
+
+O script usa as funções de preparação e métricas de `pipeline.py`. A comparação inicial completa usa os parâmetros padrão das duas bibliotecas, com semente 42. O Random Forest de 200 árvores usado anteriormente aparece como referência separada, reexecutado nas mesmas condições para calcular o ganho referente ao encontro anterior. Não confunda esse ganho com a comparação contra o modelo padrão de 100 árvores.
+
+Grid Search e Random Search usam o mesmo espaço de parâmetros, os mesmos cinco folds temporais e `n_jobs=1`. Random Search testa seis combinações (`n_iter=6`). O tempo de cada busca é medido somente durante o `fit`, incluindo o refit. A escolha do melhor método usa o RMSE de validação e não o teste final. O notebook gera a conclusão com as diferenças medidas, sem presumir que Random Search será sempre mais rápido ou que o ajuste sempre reduzirá o erro.
+
+As tabelas, o gráfico dos últimos 60 dias e a conclusão em Markdown são salvos em `output/oat3`. O MAPE considera somente demanda positiva. A publicação na branch `main` depende do commit e push dos arquivos revisados pela equipe; executar o código não publica os resultados.
 
 ## Equipe Macapá
 

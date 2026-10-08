@@ -80,8 +80,8 @@ def main():
     }
     grids = {
         "Random Forest": {
-            "modelo__n_estimators": [100, 200, 300],
-            "modelo__max_depth": [5, 10, None],
+            "modelo__n_estimators": [50, 100, 200],
+            "modelo__max_depth": [3, 5, 10],
         },
         "Gradient Boosting": {
             "modelo__n_estimators": [100, 200, 300],
