@@ -72,6 +72,10 @@
   "apresentacao": {
     "slides": 8,
     "pdf": "docs/mecaniQA_oat3_macapa.pdf",
-    "url": "https://docs.google.com/presentation/d/1x2fY3TadtFeb3VEib0HIdJrWsIWzMOdvqymlRgXB08g/edit"
+    "url": "https://docs.google.com/presentation/d/1x2fY3TadtFeb3VEib0HIdJrWsIWzMOdvqymlRgXB08g/edit",
+    "pdf_sha256": "a0fe6c31ea6f6a09c7451a5f081cdfd4e234c538da33d3678979abd6ff8b9b47",
+    "anotacoes": "Falas de ensaio; não incluídas no PDF normal.",
+    "roteiro": "docs/GUIA_OAT3.md",
+    "revisao_visual": "Oito slides conferidos após a exportação; seleção temporal, espaço de busca, legibilidade do gráfico e fontes atualizados."
   }
 }

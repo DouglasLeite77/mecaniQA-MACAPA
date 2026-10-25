@@ -21,46 +21,93 @@ Os testes de notebooks usam pastas temporárias e guardam a evidência local em 
 
 ## Roteiro de fala
 
-### 1. Abertura
+Tempo planejado: **5 min 50 s**. Ensaie com cronômetro e ajuste as palavras ao seu jeito de falar. O roteiro é apoio; use o gráfico e a tabela para explicar os resultados.
 
-Tempo sugerido: 20 s. Apresentar a equipe e o objetivo: prever a quantidade de trocas de óleo de amanhã usando observações disponíveis até hoje. Esta etapa compara modelos de regressão e a sintonia de hiperparâmetros.
-Fonte: repositório da equipe Macapá; enunciado OAT 3.
+### 1. Abertura — cerca de 20 s
 
-### 2. Agenda
+Boa tarde, professor. Somos a equipe Macapá. Na OAT 3, comparamos dois modelos e ajustamos seus parâmetros para prever as trocas de óleo do dia seguinte. Vamos mostrar como fizemos a avaliação e qual foi o ganho em relação aos baselines.
 
-Tempo sugerido: 20 s. A apresentação acompanha quatro encontros: modelos iniciais (30/09), Grid Search (07/10), Random Search (14/10) e comparação final (21/10). Destacar os resultados e usar o notebook para detalhes de código.
-Fonte: CADERNO DE GUIAS - OAT 3 - TUTORIAIS.preenchido.docx.pdf.
+### 2. Agenda — cerca de 15 s
 
-### 3. Validação temporal
+Primeiro vamos explicar a separação dos dados. Depois mostramos os modelos iniciais, as duas buscas de parâmetros e a comparação final entre as previsões e os valores reais.
 
-Tempo sugerido: 55 s. A base possui 731 dias. Seis valores ausentes de trocas de óleo retiram seis alvos, e o último dia não tem alvo do dia seguinte; restam 724 pares. São 579 exemplos de treino e 145 de teste. As contagens negativas de manutenção viram ausentes. Mediana e escala são aprendidas em cada treino. TimeSeriesSplit(gap=1) protege a fronteira do alvo em t+1. O teste cobre previsões de 09/08/2025 a 31/12/2025. Trata-se de avaliação diária, podendo observar dias anteriores do teste.
-A OAT 2 contém lags e janelas; a OAT 3 mantém Trocas_Oleo e Manutencao_Motor como entradas para isolar a comparação dos hiperparâmetros.
-Fontes: datasets/mecaniqa_dataset.xlsx; pipeline.py; oat3_completa.py.
+### 3. Validação temporal — cerca de 55 s
 
-### 4. Modelos iniciais
+Usamos a mesma planilha das etapas anteriores, com 731 dias de histórico. Depois de retirar os pares sem alvo observado, ficaram 724 exemplos: 579 para treino e 145 para teste. Mantivemos a ordem das datas. A escolha dos modelos e dos parâmetros aconteceu somente no treino, com cinco divisões temporais. A imputação e a escala também foram ajustadas dentro de cada treino. O intervalo de uma linha entre treino e validação considera que nosso alvo é a demanda de amanhã. A previsão é diária: para prever amanhã, podemos usar as observações de hoje.
 
-Tempo sugerido: 60 s. Random Forest e Gradient Boosting usam hiperparâmetros padrão de aprendizado e semente 42. O Random Forest foi escolhido no treino por RMSE médio de validação de 11,9982, contra 12,4709 do Gradient Boosting. A tabela mostra o teste posterior à escolha. O Gradient Boosting tem o menor MAE e MAPE no teste; isso não muda a escolha feita previamente pela validação. O RF padrão não supera a média móvel em RMSE. MAE e RMSE usam todos os dias; o MAPE considera somente demanda positiva, que corresponde aos 145 dias neste teste.
-Fonte: output/oat3/metricas.csv e saída de comparar_modelos.
+### 4. Modelos iniciais — cerca de 60 s
 
-### 5. Grid e Random Search
+Comparamos Random Forest e Gradient Boosting com os parâmetros padrão e fixamos a semente em 42 para repetir o experimento. A escolha foi pelo menor RMSE médio na validação: 12,00 para o Random Forest e 12,47 para o Gradient Boosting. Por isso ajustamos o Random Forest. Esta tabela mostra o teste final, consultado depois da escolha. Nele, o Gradient Boosting teve o menor MAE e MAPE entre os modelos iniciais. Isso mostra que o resultado depende da métrica e do período avaliado.
 
-Tempo sugerido: 65 s. Grid: n_estimators=[50,100,200] e max_depth=[3,5,10], nove combinações. Random usa o mesmo espaço, n_iter=6 e semente 42. Ambos usam cinco folds temporais, neg_root_mean_squared_error e n_jobs=1. Os tempos incluem fit e refit: 4,52 s e 3,68 s. A diferença foi 0,84 s. Ambos encontraram profundidade 3 e 50 árvores; RMSE no teste 7,7908 para ambos, diferença de erro zero. O empate de validação mantém o Grid pela regra do experimento. Uma execução não prova que Random será sempre mais rápido.
-Fonte: output/oat3/comparacao.csv; oat3_completa.py.
+### 5. Grid e Random Search — cerca de 65 s
 
-### 6. Previsões no teste
+No Grid Search, testamos 50, 100 e 200 árvores, com profundidades 3, 5 e 10, totalizando nove combinações. No Random Search, avaliamos seis combinações do mesmo espaço. Mantivemos os mesmos folds, a mesma métrica e o mesmo número de tarefas de processamento. As duas buscas encontraram 50 árvores e profundidade 3. O RMSE de validação e o de teste foram iguais entre as buscas. Nesta execução, o Grid levou 4,52 segundos e o Random, 3,68: uma diferença de 0,84 segundo. O empate na validação manteve o Grid, conforme a regra do experimento. Esses tempos podem variar em outra execução.
 
-Tempo sugerido: 65 s. O gráfico compara valores reais, média móvel de sete dias e Random Forest ajustado nos últimos 60 dias do teste. As métricas foram calculadas nos 145 dias, não apenas neste recorte. O ajustado ainda erra em picos e quedas; o objetivo é reduzir o erro agregado. As previsões são de um dia à frente e não de todo o horizonte de 145 dias em uma única chamada operacional.
-Fonte: output/oat3/previsoes.csv. Dados e fórmulas do gráfico: https://docs.google.com/spreadsheets/d/1qi2E5P4IXiCqAx_sfSF69FkIyXfntueI2SWUjdbpaCc/edit
+### 6. Previsões no teste — cerca de 55 s
 
-### 7. Resultado final
+A linha preta mostra a quantidade real de trocas de óleo. A cinza tracejada é a média móvel, e a verde é o Random Forest ajustado. Mostramos os últimos 60 dias para facilitar a leitura, mas as métricas usam todos os 145 dias do teste. A média móvel suaviza bastante as oscilações. O modelo ajustado varia mais, embora ainda erre em vários picos e quedas. Portanto, o resultado deve ser avaliado pelo conjunto das métricas, além do gráfico.
 
-Tempo sugerido: 65 s. A média móvel teve MAE 7,3478 e o RF ajustado 6,3321: redução de 13,82%. Em RMSE, o ajustado caiu 10,70% frente ao RF padrão e 4,05% frente à média móvel. O percentual de 10,72% que aparece no guia usa outra referência: o RF anterior de 200 árvores, reexecutado nas mesmas condições. Não misturar essas bases. MAE explica o erro médio em serviços por dia. Não foram calculados custos de estoque ou lucro em reais. O Gradient Boosting manteve MAE ligeiramente menor no teste; a seleção usou RMSE na validação.
-Fonte: output/oat3/metricas.csv; cenarios.csv; conclusao.md.
+### 7. Resultado final — cerca de 65 s
 
-### 8. Fontes
+Na comparação com a média móvel, o erro médio absoluto caiu de 7,35 para 6,33 trocas de óleo por dia. Essa redução foi de 13,82%. Em relação ao Random Forest inicial, o RMSE caiu 10,70%. O ajustado teve o menor RMSE entre os modelos avaliados; o Gradient Boosting manteve o menor MAE. Escolhemos o ajuste pelo RMSE da validação, antes de consultar o teste. Para a oficina, o MAE é mais fácil de explicar porque está na unidade do serviço. Esses números medem erro de previsão. Para calcular lucro ou economia em reais, precisaríamos conhecer os custos da operação.
 
-Tempo sugerido: 15 s. Indicar os arquivos para reprodução. A procedência detalhada do dataset não está documentada; utilizamos a planilha fornecida na atividade. Os materiais do professor são referências locais. Tempo total sugerido: 6 min 5 s.
-Fontes: datasets/mecaniqa_dataset.xlsx; oat3_completa.ipynb; output/oat3; enunciado OAT 3 e caderno de guias da disciplina.
+### 8. Fontes — cerca de 15 s
+
+Os resultados podem ser conferidos na planilha, no notebook completo e nos arquivos de saída do repositório. Usamos também o enunciado e o caderno de guias da disciplina. Obrigado.
+
+## Perguntas que podem aparecer
+
+**Por que escolheram Random Forest se o Gradient Boosting aparece melhor na tabela inicial?**
+
+Porque a escolha usou o RMSE médio da validação no treino: 11,9982 para RF e 12,4709 para GB. A tabela inicial mostra o teste final, que só foi consultado depois da seleção. O GB ficou melhor em MAE e MAPE no teste; isso deve ser reconhecido.
+
+**Por que usar TimeSeriesSplit?**
+
+Para treinar com períodos anteriores e validar em períodos posteriores. O K-Fold comum pode treinar com dados posteriores à validação. O gap de uma linha considera o alvo deslocado para o dia seguinte.
+
+**Qual é a diferença entre MAE, RMSE e MAPE?**
+
+MAE é a média do tamanho dos erros, na unidade de trocas de óleo. RMSE dá mais peso aos erros grandes. MAPE é percentual e não é definido quando a demanda real é zero; por isso calculamos só para demanda positiva e informamos a contagem.
+
+**A demanda zero foi retirada de toda a avaliação?**
+
+Não. MAE e RMSE incluem todos os dias com alvo observado. Só o MAPE usa demanda positiva. Neste teste final, os 145 dias têm demanda positiva.
+
+**Por que Random Search foi mais rápido?**
+
+Nesta execução, avaliou seis combinações, enquanto o Grid avaliou nove, nas mesmas condições. A diferença medida foi 0,84 segundo. Uma execução não garante que essa vantagem se repita em toda máquina ou base.
+
+**Quais parâmetros foram testados?**
+
+No Random Forest: n_estimators = [50, 100, 200] e max_depth = [3, 5, 10]. O Grid avaliou as nove combinações; o Random amostrou seis com random_state=42. Ambos escolheram 50 árvores e profundidade 3.
+
+**Os 13,82% e os 10,70% são o mesmo ganho?**
+
+Não. 13,82% é a redução de MAE contra a média móvel de sete dias. 10,70% é a redução de RMSE contra o Random Forest padrão. O valor de 10,72% usa como referência o RF anterior de 200 árvores.
+
+**Por que ficaram 724 pares?**
+
+A planilha tem 731 dias. O último não possui a observação de amanhã para formar o alvo. Outros seis pares têm alvo ausente. Assim, 731 − 1 − 6 = 724.
+
+**Os lags e as janelas da OAT 2 entram no modelo da OAT 3?**
+
+A OAT 2 cria e verifica esses atributos. No experimento final da OAT 3, mantivemos as duas entradas originais: Trocas_Oleo e Manutencao_Motor de hoje. A média móvel é um baseline separado. Não devemos afirmar que lag_7 ou rolling_mean_7 alimentaram esse modelo.
+
+**O modelo prevê os 145 dias de uma vez?**
+
+A avaliação representa previsões de um dia à frente. Usa observações reais disponíveis até o dia anterior de cada previsão, inclusive os dias anteriores do teste. Isso é diferente de prever 145 dias futuros sem novas observações.
+
+**Quanto a oficina economizou?**
+
+Não medimos economia em reais. Medimos a redução do erro na quantidade prevista de trocas de óleo. Para estimar economia, precisaríamos de custos de falta, excesso de estoque e outros dados operacionais.
+
+**De onde veio o dataset?**
+
+Usamos a planilha fornecida na atividade. A procedência detalhada e o processo de coleta não estão documentados no repositório; não devemos inventá-los.
+
+## Durante a apresentação
+
+Abra o PDF ou o modo de apresentação em tela cheia. Compartilhe a janela da apresentação. As anotações ficam visíveis no editor e podem ser consultadas por quem tiver acesso ao arquivo editável; não fazem parte do PDF normal.
 
 ## Como explicar as métricas
 

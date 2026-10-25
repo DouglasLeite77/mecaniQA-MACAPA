@@ -9,6 +9,7 @@ Data: 25/10/2026. Ambiente: Python 3.14.3.
 - Quatro scripts executados sem falha.
 - Previsões e métricas do experimento completo reproduzidas.
 - Apresentação de oito slides exportada no nome exigido.
+- PDF revisado visualmente: tabela identificada como teste, seleção pela validação, parâmetros candidatos, gráfico ampliado e endereço do repositório.
 
 A evidência resumida está em [verificacao.json](../output/oat3/verificacao.json).
 Logs, notebooks de teste e imagens de inspeção ficam em output/testes,
