@@ -1,0 +1,26 @@
+# Materiais de consulta das aulas
+/docs/materiais/
+/docs/aula slides/
+
+# Python e ambientes locais
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Jupyter e arquivos temporários
+.ipynb_checkpoints/
+/output/testes/
+~$*
+*.tmp
+
+# Configuração local e credenciais
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db

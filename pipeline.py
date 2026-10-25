@@ -14,8 +14,15 @@ from sklearn.preprocessing import StandardScaler
 ARQUIVO_DADOS = Path(__file__).resolve().parent / "datasets" / "mecaniqa_dataset.xlsx"
 
 
-def carregar_dados():
-    df = pd.read_excel(ARQUIVO_DADOS)
+def ler_planilha(caminho=None):
+    """Lê a série diária e marca contagens negativas como ausentes."""
+    df = pd.read_excel(ARQUIVO_DADOS if caminho is None else caminho)
+    colunas = ["Trocas_Oleo", "Manutencao_Motor"]
+    faltantes = {"Data", *colunas} - set(df.columns)
+    if faltantes:
+        raise ValueError(f"Colunas ausentes na planilha: {', '.join(sorted(faltantes))}.")
+    if df.empty:
+        raise ValueError("A planilha está vazia.")
     df["Data"] = pd.to_datetime(df["Data"], errors="raise")
     df = df.sort_values("Data").set_index("Data")
 
@@ -24,9 +31,16 @@ def carregar_dados():
     if not df.index.to_series().diff().dropna().eq(pd.Timedelta(days=1)).all():
         raise ValueError("A planilha precisa ter uma linha por dia, sem intervalos.")
 
-    # Quantidades negativas são entradas inválidas; a imputação ocorre no pipeline.
-    colunas = ["Trocas_Oleo", "Manutencao_Motor"]
+    df[colunas] = df[colunas].apply(pd.to_numeric, errors="raise").astype(float)
+    if np.isinf(df[colunas].to_numpy()).any():
+        raise ValueError("As contagens não podem conter valores infinitos.")
     df[colunas] = df[colunas].mask(df[colunas] < 0)
+    return df
+
+
+def carregar_dados():
+    df = ler_planilha()
+    colunas = ["Trocas_Oleo", "Manutencao_Motor"]
     dados = df[colunas].copy()
     dados["Demanda_Amanha"] = df["Trocas_Oleo"].shift(-1)
 
@@ -46,8 +60,18 @@ def criar_pipeline(modelo):
 
 
 def calcular_metricas(y_real, previsao):
+    """Calcula MAE/RMSE em todos os dias e MAPE só para demanda positiva."""
     real = np.asarray(y_real, dtype=float)
     previsto = np.asarray(previsao, dtype=float)
+    if real.ndim != 1 or previsto.ndim != 1 or real.shape != previsto.shape or not real.size:
+        raise ValueError("Valores reais e previsões devem ser vetores não vazios do mesmo tamanho.")
+    if not np.isfinite(real).all() or not np.isfinite(previsto).all():
+        raise ValueError("Remova valores ausentes ou infinitos antes de calcular as métricas.")
+    if (real < 0).any():
+        raise ValueError("A demanda real não pode ser negativa.")
+    if isinstance(y_real, pd.Series) and isinstance(previsao, pd.Series):
+        if not y_real.index.equals(previsao.index):
+            raise ValueError("Valores reais e previsões precisam estar nas mesmas datas.")
     positivos = real > 0
     mape = (
         np.mean(np.abs((real[positivos] - previsto[positivos]) / real[positivos])) * 100

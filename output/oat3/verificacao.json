@@ -1,0 +1,77 @@
+{
+  "data_verificacao": "2026-10-25",
+  "python": "3.14.3",
+  "bibliotecas": {
+    "numpy": "2.4.4",
+    "pandas": "3.0.2",
+    "scikit-learn": "1.8.0",
+    "matplotlib": "3.10.8",
+    "statsmodels": "0.14.6",
+    "openpyxl": "3.1.5"
+  },
+  "dataset_sha256": "1badcf72766ed53b7bb7f1221a5038d1b62aaa00d4c65bfbf8e16972a57c7ea5",
+  "testes_automatizados": {
+    "aprovados": 38,
+    "falhas": 0
+  },
+  "notebooks": [
+    {
+      "arquivo": "baseline_metricas.ipynb",
+      "status": "OK",
+      "graficos": 1
+    },
+    {
+      "arquivo": "mecaniqa_oat1.ipynb",
+      "status": "OK",
+      "graficos": 3
+    },
+    {
+      "arquivo": "metricas_timeseries.ipynb",
+      "status": "OK",
+      "graficos": 1
+    },
+    {
+      "arquivo": "oat3_completa.ipynb",
+      "status": "OK",
+      "graficos": 1
+    },
+    {
+      "arquivo": "oat3_fechamento.ipynb",
+      "status": "OK",
+      "graficos": 1
+    },
+    {
+      "arquivo": "oat3_gridsearch.ipynb",
+      "status": "OK",
+      "graficos": 0
+    },
+    {
+      "arquivo": "OAT_3_Tunando_Modelo_MecaniQA.ipynb",
+      "status": "OK",
+      "graficos": 1
+    }
+  ],
+  "scripts": [
+    {
+      "arquivo": "app.py",
+      "codigo_saida": 0
+    },
+    {
+      "arquivo": "baseline_metricas.py",
+      "codigo_saida": 0
+    },
+    {
+      "arquivo": "pipeline.py",
+      "codigo_saida": 0
+    },
+    {
+      "arquivo": "oat3_completa.py",
+      "codigo_saida": 0
+    }
+  ],
+  "apresentacao": {
+    "slides": 8,
+    "pdf": "docs/mecaniQA_oat3_macapa.pdf",
+    "url": "https://docs.google.com/presentation/d/1x2fY3TadtFeb3VEib0HIdJrWsIWzMOdvqymlRgXB08g/edit"
+  }
+}

@@ -101,7 +101,7 @@ def executar_grid(experimento, modelo, grid):
 
 def executar_random(experimento, modelo, grid, n_iter=N_ITER):
     total = len(ParameterGrid(grid))
-    if not isinstance(n_iter, int) or not 1 <= n_iter <= total:
+    if isinstance(n_iter, bool) or not isinstance(n_iter, int) or not 1 <= n_iter <= total:
         raise ValueError(f"n_iter deve ser inteiro entre 1 e {total}.")
     busca = RandomizedSearchCV(
         modelo,
@@ -241,7 +241,7 @@ def conclusao_markdown(resultado):
         "somente dias com demanda positiva e deve ser lido junto das outras métricas. "
         "Esses erros são quantidades de serviços; não medem lucro em reais sem custos "
         "de falta e excesso de estoque.\n\n"
-        "O teste final contém 145 dias. Esta avaliação prevê um dia por vez usando "
+        f"O teste final contém {len(resultado['previsoes'])} dias. Esta avaliação prevê um dia por vez usando "
         "observações disponíveis até o dia anterior à previsão; não é uma previsão "
         "de todo o período de teste de uma única vez.\n"
     )

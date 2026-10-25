@@ -1,39 +1,29 @@
-# %%
-import pandas as pd
+"""Decomposição exploratória da série de trocas de óleo (OAT 1)."""
+
 import matplotlib.pyplot as plt
 from statsmodels.tsa.seasonal import seasonal_decompose
 
+from pipeline import ler_planilha
 
 
-df = pd.read_excel('./datasets/mecaniqa_dataset.xlsx')
+def criar_decomposicao():
+    df = ler_planilha()
+    # A interpolação usa a série completa apenas para análise exploratória.
+    serie = df["Trocas_Oleo"].interpolate(method="time").ffill().bfill()
+    resultado = seasonal_decompose(serie, model="additive", period=7)
+    figura = resultado.plot()
+    figura.set_size_inches(10, 8)
+    for eixo, titulo in zip(figura.axes, ["Série observada", "Tendência", "Sazonalidade", "Ruído"]):
+        eixo.set_title(titulo)
+    figura.tight_layout()
+    return figura
 
 
-df['Data'] = pd.to_datetime(df['Data'])
-df = df.sort_values('Data').set_index('Data')
+def main():
+    figura = criar_decomposicao()
+    plt.show()
+    return figura
 
 
-series = df.select_dtypes('number').iloc[:, 0].astype(float)
-
-
-model = 'additive'
-periodo = 7
-
-if series.isna().any():
-	series = series.interpolate(method='time')
-	series = series.ffill().bfill()
-	series = series.dropna()
-
-result = seasonal_decompose(series, model=model, period=periodo)
-
-
-fig, axes = plt.subplots(4, 1, figsize=(10, 8), sharex=True)
-axes[0].plot(series)
-axes[0].set_title('Observed')
-axes[1].plot(result.trend)
-axes[1].set_title('Tendência')
-axes[2].plot(result.seasonal)
-axes[2].set_title('Sazonalidade')
-axes[3].plot(result.resid)
-axes[3].set_title('Ruído')
-plt.tight_layout()
-plt.show()
+if __name__ == "__main__":
+    main()
