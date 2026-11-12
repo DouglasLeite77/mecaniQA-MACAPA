@@ -1,5 +1,5 @@
 {
-  "data_verificacao": "2026-10-25",
+  "data_verificacao": "2026-10-28",
   "python": "3.14.3",
   "bibliotecas": {
     "numpy": "2.4.4",
@@ -12,7 +12,8 @@
   "dataset_sha256": "1badcf72766ed53b7bb7f1221a5038d1b62aaa00d4c65bfbf8e16972a57c7ea5",
   "testes_automatizados": {
     "aprovados": 38,
-    "falhas": 0
+    "falhas": 0,
+    "segundos": 21.34
   },
   "notebooks": [
     {
@@ -77,5 +78,7 @@
     "anotacoes": "Falas de ensaio; não incluídas no PDF normal.",
     "roteiro": "docs/GUIA_OAT3.md",
     "revisao_visual": "Oito slides conferidos após a exportação; seleção temporal, espaço de busca, legibilidade do gráfico e fontes atualizados."
-  }
+  },
+  "auditoria_geral": "docs/VERIFICACAO_GERAL.md",
+  "tempos_apresentacao": "Execução salva em 25/10/2026; preservada durante a revalidação."
 }

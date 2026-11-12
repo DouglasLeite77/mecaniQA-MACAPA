@@ -1,6 +1,9 @@
 # Verificação da OAT 3
 
-Data: 25/10/2026. Ambiente: Python 3.14.3.
+Revalidado em 28/10/2026. Ambiente: Python 3.14.3.
+
+O [relatório geral](VERIFICACAO_GERAL.md) também confronta os materiais das
+OATs 1 e 2, as apresentações antigas e as pendências dos cadernos.
 
 ## Resultado
 
@@ -10,6 +13,10 @@ Data: 25/10/2026. Ambiente: Python 3.14.3.
 - Previsões e métricas do experimento completo reproduzidas.
 - Apresentação de oito slides exportada no nome exigido.
 - PDF revisado visualmente: tabela identificada como teste, seleção pela validação, parâmetros candidatos, gráfico ampliado e endereço do repositório.
+
+As execuções desta revisão usaram pastas temporárias. Os tempos exibidos no
+PDF continuam sendo os da execução salva em 25/10/2026. As previsões,
+métricas e cenários foram reproduzidos sem alterar esses arquivos finais.
 
 A evidência resumida está em [verificacao.json](../output/oat3/verificacao.json).
 Logs, notebooks de teste e imagens de inspeção ficam em output/testes,
@@ -50,6 +57,10 @@ Os tempos registrados variam entre execuções.
 O Gradient Boosting teve o menor MAE no teste. A escolha do algoritmo usou
 o RMSE da validação de treino, sem consultar esse teste. Não foi estimado
 lucro em reais.
+
+O caderno preenchido da OAT 3 precisa de ajustes de redação sobre K-Fold,
+overfitting e ganhos financeiros. Esses pontos estão detalhados no relatório
+geral; os testes de código não validam automaticamente o texto das sessões.
 
 ## Entrega externa
 

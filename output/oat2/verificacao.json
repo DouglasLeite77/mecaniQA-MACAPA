@@ -1,0 +1,16 @@
+{
+  "data_verificacao": "2026-10-28",
+  "pdf": "docs/mecaniQA_oat2_Macapá-atualizada.pdf",
+  "pdf_sha256": "b34e7e71a2d71974bb24aac22754727f609c10bbceaaab17f464849735270873",
+  "dataset_sha256": "1badcf72766ed53b7bb7f1221a5038d1b62aaa00d4c65bfbf8e16972a57c7ea5",
+  "folds": 5,
+  "dias_avaliados": 605,
+  "dias_mape": 604,
+  "ausencias_originais": {
+    "Data": 0,
+    "Trocas_Oleo": 6,
+    "Manutencao_Motor": 3
+  },
+  "registros_negativos_motor": 5,
+  "agregacao": "Média aritmética das métricas dos cinco folds"
+}

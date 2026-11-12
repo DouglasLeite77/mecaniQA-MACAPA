@@ -32,7 +32,9 @@ código necessário; não precisa dos scripts locais.
 | OAT 3 | [oat3_completa.py](oat3_completa.py) | Comparação inicial, Grid, Random e avaliação final |
 | OAT 3 | [pipeline.py](pipeline.py) | Leitura validada, preparação, métricas e Grid de 07/10 |
 | OAT 3 | [oat3_gridsearch.ipynb](oat3_gridsearch.ipynb) | Recorte do encontro de 07/10 |
+| Apoio | [docs/GUIA_OAT2.md](docs/GUIA_OAT2.md) | Fala por slide e perguntas para a defesa da OAT 2 |
 | Apoio | [docs/GUIA_OAT3.md](docs/GUIA_OAT3.md) | Decisões, resultados e roteiro de apresentação |
+| QA | [docs/VERIFICACAO_GERAL.md](docs/VERIFICACAO_GERAL.md) | Auditoria das três OATs, execuções e pendências documentais |
 | QA | [tests](tests) | Testes de dados, métricas, validação e resultados |
 | Manutenção | [scripts](scripts) | Sincronização e execução dos notebooks |
 
@@ -74,6 +76,27 @@ sintonia sem mudar o experimento. A janela de sete dias é um baseline,
 não uma entrada adicional dos modelos da OAT 3.
 
 ## Resultados verificados
+
+### OAT 2
+
+Média das métricas dos cinco folds do TimeSeriesSplit, comparando os dois
+baselines nas mesmas datas válidas de cada fold:
+
+| Baseline | MAE | RMSE | MAPE (%) |
+| --- | ---: | ---: | ---: |
+| Naive | 6,65 | 8,92 | 32,64 |
+| Média móvel de 7 dias | 7,36 | 8,09 | 37,22 |
+
+Naive teve menor MAE e MAPE; a média móvel teve menor RMSE. A escolha do
+melhor baseline depende da métrica. MAE e RMSE usam 605 dias avaliados;
+o MAPE usa os 604 com demanda positiva. As previsões são de um dia à
+frente e podem usar observações anteriores do próprio período de validação.
+
+Os resultados por fold, as previsões e um exemplo dos atributos temporais
+estão em [output/oat2](output/oat2). A apresentação revisada está em
+[PDF da OAT 2](docs/mecaniQA_oat2_Macapá-atualizada.pdf).
+
+### OAT 3
 
 Mesmas 145 datas para todos os modelos; valores arredondados:
 

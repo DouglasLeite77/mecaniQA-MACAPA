@@ -1,0 +1,286 @@
+{
+  "data_verificacao": "2026-10-28",
+  "python": "3.14.3",
+  "bibliotecas": {
+    "numpy": "2.4.4",
+    "pandas": "3.0.2",
+    "scikit-learn": "1.8.0",
+    "matplotlib": "3.10.8",
+    "statsmodels": "0.14.6",
+    "openpyxl": "3.1.5"
+  },
+  "dataset_sha256": "1badcf72766ed53b7bb7f1221a5038d1b62aaa00d4c65bfbf8e16972a57c7ea5",
+  "testes": {
+    "aprovados": 38,
+    "falhas": 0,
+    "segundos": 21.34
+  },
+  "notebooks": [
+    {
+      "arquivo": "baseline_metricas.ipynb",
+      "status": "OK",
+      "segundos": 4.5,
+      "graficos": 1
+    },
+    {
+      "arquivo": "mecaniqa_oat1.ipynb",
+      "status": "OK",
+      "segundos": 3.5,
+      "graficos": 3
+    },
+    {
+      "arquivo": "metricas_timeseries.ipynb",
+      "status": "OK",
+      "segundos": 3.52,
+      "graficos": 1
+    },
+    {
+      "arquivo": "oat3_completa.ipynb",
+      "status": "OK",
+      "segundos": 11.7,
+      "graficos": 1
+    },
+    {
+      "arquivo": "oat3_fechamento.ipynb",
+      "status": "OK",
+      "segundos": 11.29,
+      "graficos": 1
+    },
+    {
+      "arquivo": "oat3_gridsearch.ipynb",
+      "status": "OK",
+      "segundos": 7.72,
+      "graficos": 0
+    },
+    {
+      "arquivo": "OAT_3_Tunando_Modelo_MecaniQA.ipynb",
+      "status": "OK",
+      "segundos": 11.49,
+      "graficos": 1
+    }
+  ],
+  "scripts": [
+    {
+      "arquivo": "app.py",
+      "codigo_saida": 0,
+      "segundos": 2.36
+    },
+    {
+      "arquivo": "baseline_metricas.py",
+      "codigo_saida": 0,
+      "segundos": 1.81
+    },
+    {
+      "arquivo": "pipeline.py",
+      "codigo_saida": 0,
+      "segundos": 6.81
+    },
+    {
+      "arquivo": "oat3_completa.py",
+      "codigo_saida": 0,
+      "segundos": 10.41
+    }
+  ],
+  "pip_check": "No broken requirements found.",
+  "pdfs": [
+    {
+      "arquivo": "docs\\aula slides\\Aula 01 - Séries Temporais_ Componentes (Tendência, Sazonalidade, Ruído) (1).pdf",
+      "paginas": 77,
+      "texto": "output\\testes\\auditoria_geral\\Aula 01 - Séries Temporais_ Componentes (Tendência, Sazonalidade, Ruído) (1).txt",
+      "sha256": "0afebb309d2933a166b387804e0686781470ca7151898051ad4814d81cd6792b"
+    },
+    {
+      "arquivo": "docs\\aula slides\\Aula 02 - Tratamento de Dados Ausentes e Outliers (1).pdf",
+      "paginas": 41,
+      "texto": "output\\testes\\auditoria_geral\\Aula 02 - Tratamento de Dados Ausentes e Outliers (1).txt",
+      "sha256": "49dfb5e37a400d759482c4ccd8bfa0261024658620b667f8e34d8f00b28660ff"
+    },
+    {
+      "arquivo": "docs\\aula slides\\Aula 03_ Modelos Baseline Avançados (1).pdf",
+      "paginas": 16,
+      "texto": "output\\testes\\auditoria_geral\\Aula 03_ Modelos Baseline Avançados (1).txt",
+      "sha256": "b8b37482afeeaeeebe59a44e8aa6b03d04c94b20dc5040a0a38dd1764d7677e2"
+    },
+    {
+      "arquivo": "docs\\aula slides\\Aula 04_ Métricas de Erro em Séries Temporais (1).pdf",
+      "paginas": 33,
+      "texto": "output\\testes\\auditoria_geral\\Aula 04_ Métricas de Erro em Séries Temporais (1).txt",
+      "sha256": "1df68d9a012b23a31c72c0727aeb55b5d4feca02bc531dd8c64ed57f4ad62781"
+    },
+    {
+      "arquivo": "docs\\aula slides\\Aula 05 - Feature Engineering para o Tempo - LAST (1).pdf",
+      "paginas": 28,
+      "texto": "output\\testes\\auditoria_geral\\Aula 05 - Feature Engineering para o Tempo - LAST (1).txt",
+      "sha256": "5b4fd6010d45dae3ca08224f0944c66c8f3fd937b73c08dd5d0200b6df4daa99"
+    },
+    {
+      "arquivo": "docs\\materiais\\CADERNO DE GUIAS - OAT 1 - TUTORIAIS (2).pdf",
+      "paginas": 6,
+      "texto": "output\\testes\\auditoria_geral\\CADERNO DE GUIAS - OAT 1 - TUTORIAIS (2).txt",
+      "sha256": "7daa14968b020e90c8b9e2c1bf4bc53ab7fcf3cbaa159566224c2f58e3e4b584"
+    },
+    {
+      "arquivo": "docs\\materiais\\CADERNO DE GUIAS - OAT 2 - TUTORIAIS.pdf",
+      "paginas": 6,
+      "texto": "output\\testes\\auditoria_geral\\CADERNO DE GUIAS - OAT 2 - TUTORIAIS.txt",
+      "sha256": "d77f0e0582d7943885ed62db0a62ead77f983d7ec72aecb4a8695237b062adc6"
+    },
+    {
+      "arquivo": "docs\\materiais\\CADERNO DE GUIAS - OAT 3 - TUTORIAIS (2).pdf",
+      "paginas": 8,
+      "texto": "output\\testes\\auditoria_geral\\CADERNO DE GUIAS - OAT 3 - TUTORIAIS (2).txt",
+      "sha256": "aef9d30b3a8bd1d9eb43ea25c4fbfbd099f1064841249d696ffe6027240c4e69"
+    },
+    {
+      "arquivo": "docs\\materiais\\CADERNO DE GUIAS - OAT 3 - TUTORIAIS.preenchido.docx.pdf",
+      "paginas": 9,
+      "texto": "output\\testes\\auditoria_geral\\CADERNO DE GUIAS - OAT 3 - TUTORIAIS.preenchido.docx.txt",
+      "sha256": "4e32b07a7508f9d48167715ef6b339252417257a3afcb0225ae65afa4b7e102d"
+    },
+    {
+      "arquivo": "docs\\materiais\\MecaniQA - Estrutura das Sessões.pdf",
+      "paginas": 5,
+      "texto": "output\\testes\\auditoria_geral\\MecaniQA - Estrutura das Sessões.txt",
+      "sha256": "f612e9187e2223bea5114eb255ae8bb2c5bdb3a64c7cc26cabbfbcb83729f8bb"
+    },
+    {
+      "arquivo": "docs\\materiais\\OAT 1 - Compreensão e Baseline (1).pdf",
+      "paginas": 5,
+      "texto": "output\\testes\\auditoria_geral\\OAT 1 - Compreensão e Baseline (1).txt",
+      "sha256": "ba7589398f4ef98f9d667371f83074b3f5888de6d4c3f679a86a15dcc90f0cd5"
+    },
+    {
+      "arquivo": "docs\\materiais\\OAT 2 - BaseLine e Métricas de Avaliação.pdf",
+      "paginas": 5,
+      "texto": "output\\testes\\auditoria_geral\\OAT 2 - BaseLine e Métricas de Avaliação.txt",
+      "sha256": "c4c90f47209060d82df9bcc8714f7499096753a32044b3748080b6240f6e860b"
+    },
+    {
+      "arquivo": "docs\\materiais\\OAT 3 - Tunando o meu Modelo (2).pdf",
+      "paginas": 6,
+      "texto": "output\\testes\\auditoria_geral\\OAT 3 - Tunando o meu Modelo (2).txt",
+      "sha256": "dd521effd6743c19706f58471ef8622e1688f210fdee1279a3a1397b0b0ecd62"
+    },
+    {
+      "arquivo": "docs\\mecaniQA_oat1_macapa.pdf",
+      "paginas": 7,
+      "texto": "output\\testes\\auditoria_geral\\mecaniQA_oat1_macapa.txt",
+      "sha256": "a438792bc5413787e40a27b2d09017accfe4ae0bb4913028f7067e010b274b95"
+    },
+    {
+      "arquivo": "docs\\mecaniQA_oat2_Macapá-atualizada.pdf",
+      "paginas": 8,
+      "texto": "output\\testes\\auditoria_geral\\mecaniQA_oat2_Macapá-atualizada.txt",
+      "sha256": "b34e7e71a2d71974bb24aac22754727f609c10bbceaaab17f464849735270873"
+    },
+    {
+      "arquivo": "docs\\mecaniQA_oat2_Macapá.pdf",
+      "paginas": 7,
+      "texto": "output\\testes\\auditoria_geral\\mecaniQA_oat2_Macapá.txt",
+      "sha256": "cd4a08f2f3ddf1deba77e949fd67e7d5cf07a54d60690349b2eb15781dd2128f"
+    },
+    {
+      "arquivo": "docs\\mecaniQA_oat3_macapa.pdf",
+      "paginas": 8,
+      "texto": "output\\testes\\auditoria_geral\\mecaniQA_oat3_macapa.txt",
+      "sha256": "a0fe6c31ea6f6a09c7451a5f081cdfd4e234c538da33d3678979abd6ff8b9b47"
+    }
+  ],
+  "total_pdfs": 17,
+  "total_paginas": 275,
+  "pdfs_preservados": true,
+  "reproducao_metricas_previsoes_cenarios_oat3": "OK, rtol=atol=1e-10",
+  "reproducao_metricas_oat2": "OK, rtol=atol=1e-10",
+  "metricas_oat2": {
+    "Média móvel 7 dias": {
+      "MAE": 7.355844155844156,
+      "RMSE": 8.08813569601411,
+      "MAPE (demanda > 0) %": 37.21820406214918
+    },
+    "Naive": {
+      "MAE": 6.646280991735537,
+      "RMSE": 8.918456017938453,
+      "MAPE (demanda > 0) %": 32.64252585462091
+    }
+  },
+  "metricas_oat3": {
+    "Naive": {
+      "MAE": 6.4206896551724135,
+      "RMSE": 8.851650927252555,
+      "MAPE (demanda > 0) %": 26.63869418849293
+    },
+    "Média móvel 7 dias": {
+      "MAE": 7.347783251231526,
+      "RMSE": 8.119272733782589,
+      "MAPE (demanda > 0) %": 30.894182262970315
+    },
+    "Random Forest padrão": {
+      "MAE": 7.015578016140948,
+      "RMSE": 8.724113999383373,
+      "MAPE (demanda > 0) %": 29.768803746872862
+    },
+    "Gradient Boosting padrão": {
+      "MAE": 6.26988344946653,
+      "RMSE": 7.899240651906706,
+      "MAPE (demanda > 0) %": 26.573340701102417
+    },
+    "Random Forest anterior (200 árvores)": {
+      "MAE": 7.018127323800271,
+      "RMSE": 8.726290477615267,
+      "MAPE (demanda > 0) %": 29.70189987416808
+    },
+    "Random Forest - Grid Search": {
+      "MAE": 6.332103087171705,
+      "RMSE": 7.790796062164231,
+      "MAPE (demanda > 0) %": 26.857747492377577
+    },
+    "Random Forest - Random Search": {
+      "MAE": 6.332103087171705,
+      "RMSE": 7.790796062164231,
+      "MAPE (demanda > 0) %": 26.857747492377577
+    }
+  },
+  "cadernos_oat1_oat2_preenchidos": "Não localizados nos diretórios verificados; usuário informa que já foram preenchidos pela equipe.",
+  "pendencias": [
+    "Cadernos de ML 1 e 2 preenchidos não disponíveis para conferência",
+    "Redação do caderno preenchido da OAT3 requer revisão",
+    "Apresentações históricas OAT1/OAT2 desatualizadas e preservadas",
+    "Exportação automática de tabelas auxiliares ainda parcial",
+    "Publicação das alterações locais e submissões externas não verificadas"
+  ],
+  "relatorio": "docs/VERIFICACAO_GERAL.md",
+  "logs_locais": "output/testes/auditoria_geral",
+  "sincronizacao_notebooks": {
+    "execucao_atualizador_copia_temporaria": 0,
+    "notebooks": [
+      {
+        "arquivo": "baseline_metricas.ipynb",
+        "codigo_equivalente": true
+      },
+      {
+        "arquivo": "mecaniqa_oat1.ipynb",
+        "codigo_equivalente": true
+      },
+      {
+        "arquivo": "metricas_timeseries.ipynb",
+        "codigo_equivalente": true
+      },
+      {
+        "arquivo": "oat3_completa.ipynb",
+        "codigo_equivalente": true
+      },
+      {
+        "arquivo": "oat3_fechamento.ipynb",
+        "codigo_equivalente": true
+      },
+      {
+        "arquivo": "oat3_gridsearch.ipynb",
+        "codigo_equivalente": true
+      },
+      {
+        "arquivo": "OAT_3_Tunando_Modelo_MecaniQA.ipynb",
+        "codigo_equivalente": true
+      }
+    ]
+  }
+}
