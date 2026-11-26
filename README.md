@@ -1,104 +1,99 @@
-# MecaniQA — OATs 1, 2 e 3
+# MecaniQA — Modelos de Aprendizado de Máquina
 
-Projeto da equipe Macapá, da disciplina de Modelos de Aprendizagem de Máquina.
-O objetivo é prever as trocas de óleo do dia seguinte a partir do histórico
-diário de uma oficina, apoiando o planejamento de peças e equipe.
+Projeto da **Equipe Macapá** na disciplina *Modelos de Aprendizado de Máquina*
+(Sistemas de Informação — UNEX, Vitória da Conquista, 2026.2).
 
-## Execução
+A MecâniQA é uma plataforma para oficinas mecânicas. O objetivo deste MVP é
+**prever a quantidade de trocas de óleo do dia seguinte** a partir do histórico
+diário da oficina, apoiando o planejamento de estoque (óleo e filtros) e da equipe.
 
-Ambiente verificado: **Python 3.14**. Na pasta do projeto:
+## Equipe
 
-~~~powershell
-py -3.14 -m pip install -r requirements.txt
-py -3.14 oat3_completa.py
-~~~
+- Artur Maia Coqueiro
+- Douglas Renan Santos
+- Joab Nascimento Rodrigues
+- Kayky Ribeiro Souza
+- Lenilson Dias Soares
 
-O experimento completo grava tabelas, previsões, gráfico e conclusão em
-[output/oat3](output/oat3). No VS Code, selecione o mesmo Python como kernel.
+## Estrutura do repositório
 
-Para usar o Colab, abra [oat3_completa.ipynb](oat3_completa.ipynb), execute as
-células na ordem e envie a planilha quando solicitado. O notebook inclui o
-código necessário; não precisa dos scripts locais.
+```text
+mecaniQA-MACAPA/
+├── apresentacoes/      # PDFs apresentados em cada OAT
+├── datasets/           # mecaniqa_dataset.xlsx (731 dias, 2024–2025)
+├── notebooks/          # notebooks de cada OAT (rodam também no Colab)
+│   └── legado/         # nomes antigos, mantidos para links já compartilhados
+├── output/             # resultados salvos (tabelas, previsões e gráficos)
+│   ├── oat2/
+│   └── oat3/
+├── scripts/            # manutenção: sincronizar e executar os notebooks
+├── src/                # código Python reutilizável
+├── tests/              # testes automatizados (pytest)
+├── requirements.txt
+└── requirements-dev.txt
+```
 
-## Arquivos principais
+| Etapa | Notebook | Código | Apresentação |
+| --- | --- | --- | --- |
+| OAT 1 — Compreensão e baseline | [mecaniqa_oat1.ipynb](notebooks/mecaniqa_oat1.ipynb) | [decomposicao_oat1.py](src/decomposicao_oat1.py) | [PDF](apresentacoes/mecaniQA_oat1_macapa.pdf) |
+| OAT 2 — Baselines e métricas | [metricas_timeseries.ipynb](notebooks/metricas_timeseries.ipynb) | [baseline_metricas.py](src/baseline_metricas.py) | [PDF](apresentacoes/mecaniQA_oat2_Macapá.pdf) |
+| OAT 3 — Tunando o modelo | [oat3_completa.ipynb](notebooks/oat3_completa.ipynb) | [oat3_completa.py](src/oat3_completa.py) | [PDF](apresentacoes/mecaniQA_oat3_Macapá.pdf) · [versão revisada](apresentacoes/mecaniQA_oat3_Macapá-atualizada.pdf) |
 
-| Etapa | Arquivo | Conteúdo |
-| --- | --- | --- |
-| OAT 1 | [mecaniqa_oat1.ipynb](mecaniqa_oat1.ipynb) | Inspeção, limpeza, IQR, decomposição e baselines de 7 e 30 dias |
-| OAT 1 | [app.py](app.py) | Decomposição aditiva com período semanal |
-| OAT 2 | [metricas_timeseries.ipynb](metricas_timeseries.ipynb) | Baselines, cinco folds temporais, métricas e atributos históricos |
-| OAT 2 | [baseline_metricas.py](baseline_metricas.py) | Funções de baseline, lags e janelas rolantes |
-| OAT 3 | [oat3_completa.ipynb](oat3_completa.ipynb) | Entrega completa dos quatro encontros |
-| OAT 3 | [oat3_completa.py](oat3_completa.py) | Comparação inicial, Grid, Random e avaliação final |
-| OAT 3 | [pipeline.py](pipeline.py) | Leitura validada, preparação, métricas e Grid de 07/10 |
-| OAT 3 | [oat3_gridsearch.ipynb](oat3_gridsearch.ipynb) | Recorte do encontro de 07/10 |
-| Apoio | [docs/GUIA_OAT2.md](docs/GUIA_OAT2.md) | Fala por slide e perguntas para a defesa da OAT 2 |
-| Apoio | [docs/GUIA_OAT3.md](docs/GUIA_OAT3.md) | Decisões, resultados e roteiro de apresentação |
-| QA | [docs/VERIFICACAO_GERAL.md](docs/VERIFICACAO_GERAL.md) | Auditoria das três OATs, execuções e pendências documentais |
-| QA | [tests](tests) | Testes de dados, métricas, validação e resultados |
-| Manutenção | [scripts](scripts) | Sincronização e execução dos notebooks |
+[`src/pipeline.py`](src/pipeline.py) concentra a leitura validada da planilha,
+o Pipeline (imputação, padronização e modelo) e as métricas MAE, RMSE e MAPE.
 
-Os nomes oat3_fechamento.ipynb e OAT_3_Tunando_Modelo_MecaniQA.ipynb continuam
-disponíveis para os links já compartilhados. Ambos executam o mesmo
-experimento completo. baseline_metricas.ipynb apresenta as mesmas funções
-da OAT 2. A referência principal da entrega final é oat3_completa.ipynb.
+## Como executar
+
+Python 3.12 ou superior. Na raiz do repositório:
+
+```powershell
+py -m pip install -r requirements.txt
+py src/oat3_completa.py          # experimento completo da OAT 3 (grava em output/oat3)
+py src/baseline_metricas.py      # baselines e atributos da OAT 2
+py src/decomposicao_oat1.py      # decomposição sazonal da OAT 1
+```
+
+Os notebooks podem ser abertos no VS Code/Jupyter a partir de `notebooks/` ou no
+Google Colab (o notebook pede o envio da planilha quando não a encontra).
 
 ## Dados e tratamento
 
 A planilha [mecaniqa_dataset.xlsx](datasets/mecaniqa_dataset.xlsx) tem 731 dias,
-de 01/01/2024 a 31/12/2025, e as colunas Data, Trocas_Oleo e Manutencao_Motor.
-Há seis ausências em trocas de óleo, três em manutenção e cinco contagens
-negativas em manutenção. Valores negativos viram ausentes; a planilha
-original permanece intacta. A procedência detalhada da base ainda precisa
-ser documentada pela equipe; usamos o arquivo fornecido na atividade.
+de 01/01/2024 a 31/12/2025, com as colunas `Data`, `Trocas_Oleo` e `Manutencao_Motor`.
+Há 6 ausências em trocas de óleo, 3 em manutenção e 5 contagens negativas em
+manutenção (14 registros tratados). Valores negativos viram ausentes; a planilha
+original permanece intacta.
 
-A interpolação temporal e o IQR da OAT 1 servem à análise exploratória.
-No experimento preditivo da OAT 3, a mediana e a escala são aprendidas dentro
-do Pipeline, somente no treino de cada fold. Alvos ausentes são removidos.
+A interpolação temporal e o IQR da OAT 1 servem à análise exploratória. No
+experimento preditivo, mediana e escala são aprendidas dentro do Pipeline,
+somente no treino de cada fold, e alvos ausentes são removidos.
 
-## Protocolo da OAT 3
+## Protocolo de avaliação (OAT 3)
 
-- Alvo: trocas de óleo de amanhã, usando as contagens observadas até hoje.
-- 724 pares válidos: 579 para treino e 145 para teste, sem embaralhamento.
-- Escolha entre Random Forest e Gradient Boosting pelo RMSE médio em cinco
-  folds de TimeSeriesSplit(gap=1), dentro do treino.
-- Grid e Random usam o mesmo espaço de parâmetros, RMSE e n_jobs=1.
-  Grid avalia nove combinações para Random Forest; Random avalia seis.
-- O teste final não escolhe modelo ou parâmetros. Empates de validação
-  entre as buscas mantêm o Grid.
-- Os dias previstos no teste vão de **09/08/2025 a 31/12/2025**. A avaliação
-  prevê um dia por vez e pode usar a observação do dia anterior no próprio teste.
+- **Alvo:** trocas de óleo de amanhã, usando as contagens observadas até hoje.
+- **Separação temporal:** 724 pares válidos — 579 para treino e 145 para teste
+  (09/08/2025 a 31/12/2025), sem embaralhamento.
+- **Seleção:** Random Forest × Gradient Boosting pelo RMSE médio em 5 folds de
+  `TimeSeriesSplit(gap=1)`, apenas no treino.
+- **Sintonia:** Grid Search (9 combinações) e Random Search (6) no mesmo espaço
+  de parâmetros; o teste final só é consultado depois das escolhas.
 
-Na OAT 2, o código cria lag_1, lag_7, rolling_mean_7 e rolling_std_7, sempre
-com dados anteriores ao alvo, e mostra os recortes temporais.
-A OAT 3 mantém suas duas entradas originais para comparar o efeito da
-sintonia sem mudar o experimento. A janela de sete dias é um baseline,
-não uma entrada adicional dos modelos da OAT 3.
+Na OAT 2 são criados `lag_1`, `lag_7`, `rolling_mean_7` e `rolling_std_7`, sempre
+com dados anteriores ao alvo. O modelo da OAT 3 mantém as duas entradas originais
+para isolar o efeito da sintonia de hiperparâmetros.
 
-## Resultados verificados
+## Resultados
 
-### OAT 2
-
-Média das métricas dos cinco folds do TimeSeriesSplit, comparando os dois
-baselines nas mesmas datas válidas de cada fold:
+### OAT 2 — média dos 5 folds temporais
 
 | Baseline | MAE | RMSE | MAPE (%) |
 | --- | ---: | ---: | ---: |
 | Naive | 6,65 | 8,92 | 32,64 |
 | Média móvel de 7 dias | 7,36 | 8,09 | 37,22 |
 
-Naive teve menor MAE e MAPE; a média móvel teve menor RMSE. A escolha do
-melhor baseline depende da métrica. MAE e RMSE usam 605 dias avaliados;
-o MAPE usa os 604 com demanda positiva. As previsões são de um dia à
-frente e podem usar observações anteriores do próprio período de validação.
+Detalhes por fold e previsões em [output/oat2](output/oat2).
 
-Os resultados por fold, as previsões e um exemplo dos atributos temporais
-estão em [output/oat2](output/oat2). A apresentação revisada está em
-[PDF da OAT 2](docs/mecaniQA_oat2_Macapá-atualizada.pdf).
-
-### OAT 3
-
-Mesmas 145 datas para todos os modelos; valores arredondados:
+### OAT 3 — mesmas 145 datas de teste
 
 | Modelo | MAE | RMSE | MAPE (%) |
 | --- | ---: | ---: | ---: |
@@ -106,61 +101,27 @@ Mesmas 145 datas para todos os modelos; valores arredondados:
 | Média móvel de 7 dias | 7,35 | 8,12 | 30,89 |
 | Random Forest padrão | 7,02 | 8,72 | 29,77 |
 | Gradient Boosting padrão | 6,27 | 7,90 | 26,57 |
-| Random Forest ajustado | 6,33 | 7,79 | 26,86 |
+| **Random Forest ajustado** (50 árvores, profundidade 3) | 6,33 | **7,79** | 26,86 |
 
-O ajuste escolheu **50 árvores e profundidade 3**. Grid e Random encontraram
-a mesma configuração e o mesmo RMSE. O RMSE caiu 10,70% frente ao Random
-Forest padrão e 4,05% frente à média móvel; o MAE caiu 13,82% frente à média móvel.
-O Gradient Boosting teve o menor MAE no teste, enquanto o Random Forest
-ajustado teve o menor RMSE. A escolha prévia usou o RMSE de validação.
+O ajuste reduziu o RMSE em 10,70% frente ao Random Forest padrão. O Gradient
+Boosting teve o menor MAE no teste; a escolha prévia usou o RMSE de validação.
+Tabelas, previsões, tempos das buscas e gráfico em [output/oat3](output/oat3).
 
-MAE e RMSE incluem todos os dias. O MAPE considera somente demanda positiva;
-neste teste são 145 de 145 dias. Os tempos são medidos a cada execução e
-ficam em [comparacao.csv](output/oat3/comparacao.csv).
-As médias dos folds da OAT 2 usam outros períodos e não são comparação
-direta com este teste final.
+**Limitações e próximos passos:** a série tem sazonalidade semanal forte
+(sexta a domingo com ~75% mais trocas). Incluir o dia da semana e o `lag_7` como
+entradas do modelo e comparar com um Naive sazonal são os próximos passos naturais.
 
-## Testes e manutenção
+## Testes
 
-~~~powershell
-py -3.14 -m pip install -r requirements-dev.txt
-py -3.14 -m pytest
-py -3.14 scripts/testar_notebooks.py
-~~~
+```powershell
+py -m pip install -r requirements-dev.txt
+py -m pytest                          # testes de dados, métricas, validação e resultados
+py scripts/testar_notebooks.py        # executa todos os notebooks em pastas temporárias
+```
 
-O primeiro teste verifica métricas, datas, tratamento de nulos, baselines,
-ausência de uso de observações futuras, buscas e reprodução das previsões
-salvas. O segundo executa os sete notebooks em pastas temporárias, com um
-kernel novo por notebook, e salva a evidência local em output/testes/.
+Ao alterar algo em `src/`, sincronize os notebooks e grave as novas saídas:
 
-Após modificar pipeline.py, baseline_metricas.py ou oat3_completa.py,
-sincronize as cópias autossuficientes e execute os testes novamente:
-
-~~~powershell
-py -3.14 scripts/atualizar_notebooks.py
-~~~
-
-A sincronização limpa as saídas antigas. Execute os notebooks antes de
-apresentá-los. O notebook da OAT 1 tem sua análise própria e é mantido
-separadamente.
-
-## Versionamento e entrega
-
-Versionamos código, testes, dependências, base, documentação, apresentações
-da equipe e resultados finais de output/oat3/. O .gitignore exclui caches,
-ambientes virtuais, credenciais, output/testes/ e as pastas locais
-docs/materiais/ e docs/aula slides/, conforme a organização da equipe.
-
-O professor pede a entrega na branch main e a apresentação no modelo da
-disciplina, com o nome mecaniQA_oat3_macapa.pdf. A execução dos scripts
-não faz commit, push nem envio ao Blackboard.
-
-## Equipe Macapá
-
-- Artur Maia Coqueiro
-- Douglas Renan Santos
-- Kayky Ribeiro Souza
-- Lenilson Dias Soares
-- Joab Nascimento Rodrigues
-
-Unidade: Vitória da Conquista.
+```powershell
+py scripts/atualizar_notebooks.py
+py scripts/testar_notebooks.py --salvar
+```
