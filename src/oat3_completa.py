@@ -1,3 +1,10 @@
+"""Experimento completo da OAT 3: modelos padrão, Grid Search, Random Search e teste final.
+
+Ordem dos encontros: 30/09 (RF e GB com parâmetros padrão), 07/10 (GridSearchCV),
+14/10 (RandomizedSearchCV) e 21/10 (comparação com os baselines e gráfico).
+Toda escolha usa só o treino (TimeSeriesSplit com gap=1); o teste é consultado no fim.
+"""
+
 from pathlib import Path
 from time import perf_counter
 
@@ -27,10 +34,12 @@ GRIDS = {
     },
 }
 N_ITER = 6
-PASTA_RESULTADOS = Path(__file__).resolve().parent / "output" / "oat3"
+# Resultados ficam na raiz do repositório (um nível acima de src/).
+PASTA_RESULTADOS = Path(__file__).resolve().parents[1] / "output" / "oat3"
 
 
 def preparar_experimento():
+    """Separa treino (80%) e teste (20%) no tempo e confere que os folds não usam o futuro."""
     dados, colunas = carregar_dados()
     corte = int(len(dados) * 0.8)
     treino, teste = dados.iloc[:corte], dados.iloc[corte:]
@@ -57,6 +66,7 @@ def preparar_experimento():
 
 
 def comparar_modelos(experimento):
+    """Compara RF e GB com parâmetros padrão pelo RMSE médio na validação temporal."""
     # Apenas a semente é fixada; os hiperparâmetros de aprendizado são os padrões.
     modelos = {
         "Random Forest": criar_pipeline(RandomForestRegressor(random_state=42)),
@@ -81,6 +91,7 @@ def comparar_modelos(experimento):
 
 
 def executar_grid(experimento, modelo, grid):
+    """Busca exaustiva (GridSearchCV) no espaço de parâmetros do modelo escolhido."""
     busca = GridSearchCV(
         modelo,
         param_grid=grid,
@@ -100,6 +111,7 @@ def executar_grid(experimento, modelo, grid):
 
 
 def executar_random(experimento, modelo, grid, n_iter=N_ITER):
+    """Busca aleatória (RandomizedSearchCV) no mesmo espaço, com n_iter combinações."""
     total = len(ParameterGrid(grid))
     if isinstance(n_iter, bool) or not isinstance(n_iter, int) or not 1 <= n_iter <= total:
         raise ValueError(f"n_iter deve ser inteiro entre 1 e {total}.")
@@ -124,12 +136,14 @@ def executar_random(experimento, modelo, grid, n_iter=N_ITER):
 
 
 def reducao_percentual(erro_inicial, erro_final):
+    """Redução percentual do erro; positivo indica melhora, negativo indica piora."""
     if erro_inicial == 0:
         return float("nan")
     return (erro_inicial - erro_final) / erro_inicial * 100
 
 
 def avaliar_teste(experimento, modelos, escolhido, grid, random):
+    """Calcula MAE, RMSE e MAPE de todos os modelos nas mesmas datas do teste final."""
     metodos = {"Grid Search": grid, "Random Search": random}
     # Empates de validação mantêm o Grid, sem consultar o teste final.
     melhor_metodo = min(metodos, key=lambda nome: -metodos[nome]["busca"].best_score_)
@@ -198,6 +212,7 @@ def avaliar_teste(experimento, modelos, escolhido, grid, random):
 
 
 def conclusao_markdown(resultado):
+    """Gera o texto de conclusão com os números medidos nesta execução."""
     c = resultado["comparacao"]
     g, r = c.loc["Grid Search"], c.loc["Random Search"]
     diferenca_tempo = g["Tempo (s)"] - r["Tempo (s)"]
@@ -248,6 +263,7 @@ def conclusao_markdown(resultado):
 
 
 def criar_grafico(resultado):
+    """Gráfico dos últimos 60 dias: real, baseline, modelo inicial e modelo ajustado."""
     dados = resultado["previsoes"].tail(60)
     fig, ax = plt.subplots(figsize=(13, 5))
     curvas = {
@@ -269,6 +285,7 @@ def criar_grafico(resultado):
 
 
 def salvar_resultados(resultado, figura, pasta=PASTA_RESULTADOS):
+    """Grava tabelas, previsões, gráfico e conclusão em output/oat3."""
     pasta = Path(pasta)
     pasta.mkdir(parents=True, exist_ok=True)
     for nome in ["metricas", "cenarios", "comparacao", "previsoes"]:
@@ -279,6 +296,7 @@ def salvar_resultados(resultado, figura, pasta=PASTA_RESULTADOS):
 
 
 def main():
+    """Executa o experimento completo da OAT 3 e salva os resultados."""
     experimento = preparar_experimento()
     modelos, escolhido, _ = comparar_modelos(experimento)
     grid = executar_grid(experimento, modelos[escolhido], GRIDS[escolhido])

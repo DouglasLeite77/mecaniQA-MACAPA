@@ -1,7 +1,12 @@
-"""Executa todos os notebooks em uma cópia temporária, com o Python atual."""
+"""Executa todos os notebooks de notebooks/ em cópias temporárias, com o Python atual.
 
+Cada notebook roda num kernel novo, numa pasta temporária com a planilha, então os
+resultados oficiais em output/ nunca são sobrescritos. Use --salvar para gravar as
+saídas da execução de volta nos notebooks (depois de rodar atualizar_notebooks.py).
+"""
+
+import argparse
 import json
-import os
 from pathlib import Path
 import shutil
 import sys
@@ -15,9 +20,18 @@ from jupyter_client.kernelspec import KernelSpecManager
 
 ROOT = Path(__file__).resolve().parents[1]
 SAIDA = ROOT / "output" / "testes"
+NOTEBOOKS = ROOT / "notebooks"
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--salvar", action="store_true", help="grava as saídas nos notebooks originais")
+    args = parser.parse_args()
+    arquivos = sorted(NOTEBOOKS.rglob("*.ipynb"))
+    if not arquivos:
+        # Sem esta checagem, all([]) seria verdadeiro e o script diria "OK" sem testar nada.
+        print("Nenhum notebook encontrado em notebooks/.")
+        return 1
     SAIDA.mkdir(parents=True, exist_ok=True)
     resultados = []
     with tempfile.TemporaryDirectory(prefix="mecaniqa_notebooks_") as temporario:
@@ -31,7 +45,7 @@ def main():
             "language": "python",
         }), encoding="utf-8")
         spec = KernelSpecManager(kernel_dirs=[str(kernels)])
-        for arquivo in sorted(ROOT.glob("*.ipynb")):
+        for arquivo in arquivos:
             pasta = trabalho / arquivo.stem
             (pasta / "datasets").mkdir(parents=True)
             shutil.copy2(ROOT / "datasets/mecaniqa_dataset.xlsx", pasta / "datasets/mecaniqa_dataset.xlsx")
@@ -41,7 +55,7 @@ def main():
                     cell.outputs = []
                     cell.execution_count = None
             inicio = perf_counter()
-            resultado = {"arquivo": arquivo.name}
+            resultado = {"arquivo": str(arquivo.relative_to(ROOT))}
             print(f"Executando {arquivo.name}", flush=True)
             km = KernelManager(kernel_name="mecaniqa_testes", kernel_spec_manager=spec)
             cliente = NotebookClient(nb, km=km, timeout=180, resources={"metadata": {"path": str(pasta)}})
@@ -65,6 +79,8 @@ def main():
                 if output.output_type == "stream"
             )
             nbformat.write(nb, SAIDA / arquivo.name)
+            if args.salvar and resultado["status"] == "OK":
+                nbformat.write(nb, arquivo)
             if (pasta / "output/oat3").exists():
                 shutil.copytree(pasta / "output/oat3", SAIDA / arquivo.stem, dirs_exist_ok=True)
             resultados.append(resultado)

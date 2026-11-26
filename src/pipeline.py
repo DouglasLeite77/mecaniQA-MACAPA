@@ -1,3 +1,10 @@
+"""Leitura validada da planilha, preparação do alvo, Pipeline e métricas (OATs 2 e 3).
+
+Módulo base do projeto: os demais scripts importam daqui a leitura dos dados,
+a construção do Pipeline (imputação + padronização + modelo) e o cálculo de
+MAE, RMSE e MAPE. Executado diretamente, reproduz o Grid Search de 07/10.
+"""
+
 from pathlib import Path
 from time import perf_counter
 
@@ -11,7 +18,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 
-ARQUIVO_DADOS = Path(__file__).resolve().parent / "datasets" / "mecaniqa_dataset.xlsx"
+# src/ fica um nível abaixo da raiz do repositório, onde está a pasta datasets/.
+ARQUIVO_DADOS = Path(__file__).resolve().parents[1] / "datasets" / "mecaniqa_dataset.xlsx"
 
 
 def ler_planilha(caminho=None):
@@ -39,9 +47,11 @@ def ler_planilha(caminho=None):
 
 
 def carregar_dados():
+    """Monta a tabela de previsão: entradas de hoje, alvo de amanhã e os dois baselines."""
     df = ler_planilha()
     colunas = ["Trocas_Oleo", "Manutencao_Motor"]
     dados = df[colunas].copy()
+    # shift(-1) cria o ALVO (demanda de amanhã); não entra nas entradas do modelo.
     dados["Demanda_Amanha"] = df["Trocas_Oleo"].shift(-1)
 
     # Previsões de amanhã usando somente informações disponíveis até hoje.
@@ -52,6 +62,7 @@ def carregar_dados():
 
 
 def criar_pipeline(modelo):
+    """Imputação e padronização aprendidas só no treino de cada fold, seguidas do modelo."""
     return Pipeline([
         ("imputacao", SimpleImputer(strategy="median")),
         ("padronizacao", StandardScaler()),
@@ -85,6 +96,7 @@ def calcular_metricas(y_real, previsao):
 
 
 def main():
+    """Recorte do encontro de 07/10: compara RF e GB e ajusta o vencedor com GridSearchCV."""
     dados, colunas = carregar_dados()
     corte = int(len(dados) * 0.8)
     treino, teste = dados.iloc[:corte], dados.iloc[corte:]

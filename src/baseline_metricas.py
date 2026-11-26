@@ -18,6 +18,7 @@ def modelo_media_movel(serie, janela=7):
 
 
 def criar_features_temporais(serie):
+    """Lags e janelas rolantes calculados só com dias anteriores ao alvo."""
     passado = serie.ffill().shift(1)
     return pd.DataFrame({
         "lag_1": passado,
@@ -51,6 +52,7 @@ def avaliar_baselines(serie, n_splits=5):
 
 
 def criar_grafico_baselines(serie):
+    """Gráfico dos últimos 60 dias: série real sobreposta ao Naive e à média móvel."""
     fig, ax = plt.subplots(figsize=(13, 5))
     ax.plot(serie.tail(60), label="Trocas de óleo reais", color="black", linewidth=2)
     ax.plot(modelo_naive(serie).tail(60), label="Naive (dia anterior)", linestyle="--")
@@ -64,6 +66,7 @@ def criar_grafico_baselines(serie):
 
 
 def main():
+    """Executa a avaliação dos baselines, mostra os atributos e o gráfico da OAT 2."""
     df = ler_planilha()
     serie = df["Trocas_Oleo"]
     print(f"Dados carregados: {len(df)} dias.")

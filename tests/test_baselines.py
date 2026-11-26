@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-import app
+import decomposicao_oat1 as app
 import baseline_metricas as b
 import pipeline as p
 
