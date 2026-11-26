@@ -1,6 +1,7 @@
-# Materiais de consulta das aulas
+# Materiais de consulta das aulas (slides, enunciados, cadernos e PEA do professor)
 /docs/materiais/
 /docs/aula slides/
+/docs/slides/
 
 # Python e ambientes locais
 __pycache__/
