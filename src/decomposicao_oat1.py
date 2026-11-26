@@ -7,6 +7,7 @@ from pipeline import ler_planilha
 
 
 def criar_decomposicao():
+    """Decompõe a série em tendência, sazonalidade semanal e ruído (modelo aditivo)."""
     df = ler_planilha()
     # A interpolação usa a série completa apenas para análise exploratória.
     serie = df["Trocas_Oleo"].interpolate(method="time").ffill().bfill()
@@ -20,6 +21,7 @@ def criar_decomposicao():
 
 
 def main():
+    """Mostra o gráfico da decomposição."""
     figura = criar_decomposicao()
     plt.show()
     return figura

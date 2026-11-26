@@ -159,7 +159,7 @@ def test_artifacts_and_plot(full):
     assert all(len(line.get_ydata())==60 for line in fig.axes[0].lines)
     plt.close(fig)
 
-@pytest.mark.parametrize('filename,module',[('oat3_completa.ipynb',o),('oat3_gridsearch.ipynb',p)])
+@pytest.mark.parametrize('filename,module',[('notebooks/oat3_completa.ipynb',o),('notebooks/legado/oat3_gridsearch.ipynb',p)])
 def test_notebook_functions_equal_scripts(filename,module):
     nb=json.loads((ROOT/filename).read_text(encoding='utf-8'))
     code='\n'.join(''.join(c['source']) for c in nb['cells'] if c['cell_type']=='code')
