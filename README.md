@@ -7,6 +7,11 @@ A MecâniQA é uma plataforma para oficinas mecânicas. O objetivo deste MVP é
 **prever a quantidade de trocas de óleo do dia seguinte** a partir do histórico
 diário da oficina, apoiando o planejamento de estoque (óleo e filtros) e da equipe.
 
+> **OAT 4 (integrada com Computação em Nuvem):** a OAT 4 é uma atividade única das duas
+> disciplinas — observabilidade com Prometheus/Grafana + predição de requisições (7 baselines,
+> 4 partições com MAE/MSE e Random Forest). Todo o código dela está no repositório de Nuvem:
+> [mecaniQA-nuvem-macapa › oat4](https://github.com/LenilsonSoares/mecaniQA-nuvem-macapa/tree/main/oat4).
+
 ## Equipe
 
 - Artur Maia Coqueiro
